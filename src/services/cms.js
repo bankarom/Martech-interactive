@@ -270,14 +270,20 @@ const LOCAL_SERVICES = [
   }
 ];
 
+const decodeHtml = (html) => {
+  const txt = document.createElement('textarea');
+  txt.innerHTML = html;
+  return txt.value;
+};
+
 const normalizeWpPost = (post) => {
   if (!post) return null;
   return {
-    id: post.id.toString(),
-    slug: post.slug,
-    title: post.title.rendered,
-    excerpt: post.excerpt.rendered.replace(/<[^>]*>/g, '').substring(0, 120) + '...',
-    content: post.content.rendered,
+    id: post.id ? post.id.toString() : '',
+    slug: post.slug || '',
+    title: post.title?.rendered ? decodeHtml(post.title.rendered) : (post.title || ''),
+    excerpt: post.excerpt?.rendered ? post.excerpt.rendered.replace(/<[^>]*>/g, '').substring(0, 120) + '...' : '',
+    content: post.content?.rendered || '',
     category: post.categories_names?.[0] || 'Uncategorized',
     categorySlug: post.categorySlug,
     subcategorySlug: post.subcategorySlug,
@@ -310,7 +316,14 @@ const normalizeWpPost = (post) => {
     // Results details for case studies
     company: post.company || '',
     industry: post.industry || '',
-    results: post.results || []
+    results: post.results || [],
+
+    // ACF Fields for Solutions
+    tagline: post.acf?.tagline || post.tagline || '',
+    iconName: post.acf?.icon_name || post.iconName || 'Target',
+    impact: post.acf?.impact || post.impact || '',
+    shortDescription: post.excerpt?.rendered ? post.excerpt.rendered.replace(/<[^>]*>/g, '').substring(0, 120) + '...' : (post.shortDescription || ''),
+    features: post.features || []
   };
 };
 
@@ -332,11 +345,18 @@ export const CMSService = {
   },
 
   getServices: async () => {
+    const raw = await wordpressApi.getSolutions();
+    // If title is an object, it came from WordPress REST API. Normalize it!
+    if (raw.length > 0 && typeof raw[0].title === 'object') {
+      return raw.map(normalizeWpPost);
+    }
+    // Otherwise, return the local mock data
     return LOCAL_SERVICES;
   },
 
   getServiceById: async (id) => {
-    return LOCAL_SERVICES.find(s => s.id === id);
+    const list = await CMSService.getServices();
+    return list.find(s => s.id === id);
   },
 
   getArticles: async (categorySlug = null) => {
@@ -393,6 +413,26 @@ export const CMSService = {
   getReportById: async (id) => {
     const post = await wordpressApi.getResearchById(id);
     return normalizeWpPost(post);
+  },
+
+  getPodcasts: async () => {
+    const raw = await wordpressApi.getPodcasts();
+    return raw.map(normalizeWpPost);
+  },
+
+  getInfographics: async () => {
+    const raw = await wordpressApi.getInfographics();
+    return raw.map(normalizeWpPost);
+  },
+
+  getGuestArticles: async () => {
+    const raw = await wordpressApi.getGuestArticles();
+    return raw.map(normalizeWpPost);
+  },
+
+  getWhitepapers: async () => {
+    const raw = await wordpressApi.getWhitepapers();
+    return raw.map(normalizeWpPost);
   },
 
   submitLeadEmail: async (email) => {

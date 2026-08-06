@@ -8,7 +8,41 @@ const WP_API_BASE = import.meta.env.VITE_WP_API_URL || '';
 
 // Mock Local Database Store
 const LOCAL_JSON_DB = {
-  posts: MOCK_DATABASE.articles,
+  posts: [
+    {
+      id: 101, slug: 'trustedsite-shopify', title: 'TrustedSite Trust Badge App Gains Built for Shopify Status',
+      category: 'Audience/Marketing Data & Data Enhancement', categorySlug: 'data-management',
+      author_name: 'BUSINESSWIRE', author_avatar: 'https://ui-avatars.com/api/?name=BW&background=0D8ABC&color=fff',
+      date: '2026-07-30T10:00:00', read_time: '4 min read',
+      featured_media_url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
+      excerpt: { rendered: '<p>TrustedSite secures its position...</p>' }, content: { rendered: '<p>Full content</p>' }
+    },
+    {
+      id: 102, slug: 'pattern-ai-native', title: 'Pattern Brings AI-Native Ads to Global Brands',
+      category: 'Ecommerce', categorySlug: 'content-experience',
+      author_name: 'BUSINESSWIRE', author_avatar: 'https://ui-avatars.com/api/?name=BW&background=0D8ABC&color=fff',
+      date: '2026-07-30T09:00:00', read_time: '5 min read',
+      featured_media_url: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=800&q=80',
+      excerpt: { rendered: '<p>Pattern integrates generative AI...</p>' }, content: { rendered: '<p>Full content</p>' }
+    },
+    {
+      id: 103, slug: 'freewheel-debuts-series', title: 'FreeWheel Debuts Series-Level Reporting Powered by Direct Publisher Insights',
+      category: 'Adtech', categorySlug: 'advertising-promotion',
+      author_name: 'BUSINESSWIRE', author_avatar: 'https://ui-avatars.com/api/?name=BW&background=0D8ABC&color=fff',
+      date: '2026-07-30T08:00:00', read_time: '6 min read',
+      featured_media_url: 'https://images.unsplash.com/photo-1553484771-371a605b060b?auto=format&fit=crop&w=800&q=80',
+      excerpt: { rendered: '<p>FreeWheel launches new reporting...</p>' }, content: { rendered: '<p>Full content</p>' }
+    },
+    {
+      id: 104, slug: 'global-study-ai-content', title: 'Global Study: Poor AI Content Erodes Brand Trust',
+      category: 'Adtech', categorySlug: 'advertising-promotion',
+      author_name: 'GLOBENEWSWIRE', author_avatar: 'https://ui-avatars.com/api/?name=GN&background=10B981&color=fff',
+      date: '2026-07-30T07:00:00', read_time: '7 min read',
+      featured_media_url: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80',
+      excerpt: { rendered: '<p>Consumers are rejecting lazy AI content...</p>' }, content: { rendered: '<p>Full content</p>' }
+    },
+    ...MOCK_DATABASE.articles
+  ],
   categories: [
     { id: 1, name: 'Advertising & Promotion', slug: 'advertising-promotion' },
     { id: 2, name: 'Management', slug: 'management' },
@@ -35,6 +69,61 @@ const LOCAL_JSON_DB = {
     { id: 'intent-data', title: 'Intent Data', tagline: 'Real-time B2B buyer intent ingestion.', impact: '35 Day reduction in sales cycle length' },
     { id: 'b2b-marketing', title: 'B2B Marketing', tagline: 'Enterprise demand generation blueprints.', impact: '40% Higher marketing contribution' },
     { id: 'campaign-management', title: 'Campaign Management', tagline: 'Operational orchestrations for multi-channel programs.', impact: '28% Average reduction in CPA' }
+  ],
+  podcasts: [
+    {
+      id: 201, slug: 'fredrik-skantze-funnel', title: 'Fredrik Skantze - Chief Executive Officer',
+      company: 'FUNNEL', author_name: 'MTC', date: '2026-07-30T10:00:00',
+      featured_media_url: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80', // headshot
+      excerpt: { rendered: '<p>Listen to the Champion</p>' }, content: { rendered: '<p>Podcast details...</p>' }
+    },
+    {
+      id: 202, slug: 'karen-kaukol-entrust', title: 'Karen Kaukol - Chief Marketing Officer',
+      company: 'ENTRUST', author_name: 'MTC', date: '2026-07-30T09:00:00',
+      featured_media_url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80',
+      excerpt: { rendered: '<p>Listen to the Champion</p>' }, content: { rendered: '<p>Podcast details...</p>' }
+    }
+  ],
+  infographics: [],
+  guestArticles: [
+    {
+      id: 301, slug: 'data-readiness-myth', title: 'The Data Readiness Myth Is Holding Back AI Adoption',
+      author_name: 'SANDEEP MENON', date: '2026-07-29T10:00:00',
+      featured_media_url: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80',
+      excerpt: { rendered: '<p>Why waiting for perfect data is failing.</p>' }, content: { rendered: '<p>Full article...</p>' }
+    },
+    {
+      id: 302, slug: 'b2b-brands-agencies', title: 'Why B2B Brands Must Start Thinking Like Agencies to Win on Customer Experience',
+      author_name: 'TED MCNULTY', date: '2026-07-22T10:00:00',
+      featured_media_url: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80',
+      excerpt: { rendered: '<p>Customer experience is the new battleground.</p>' }, content: { rendered: '<p>Full article...</p>' }
+    },
+    {
+      id: 303, slug: 'ai-appreciation-day', title: 'AI Appreciation Day 2026: Celebrating Marketing Innovation',
+      author_name: 'MTC BLOGS', date: '2026-07-16T10:00:00',
+      featured_media_url: 'https://images.unsplash.com/photo-1531297172867-4f40f3531bcf?auto=format&fit=crop&w=800&q=80',
+      excerpt: { rendered: '<p>How far we have come.</p>' }, content: { rendered: '<p>Full article...</p>' }
+    }
+  ],
+  whitepapers: [ // Using whitepapers or research for in-house articles
+    {
+      id: 401, slug: 'technical-upskilling', title: 'Why Technical Upskilling Is Key for Success in Complex Sales Cycles',
+      author_name: 'MTC NEWS DESK', date: '2026-07-29T10:00:00',
+      featured_media_url: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80',
+      excerpt: { rendered: '<p>Upskilling sales teams.</p>' }, content: { rendered: '<p>Full article...</p>' }
+    },
+    {
+      id: 402, slug: 'auditing-hidden-stack', title: 'How MarTech Leaders are Auditing Hidden Stack Waste?',
+      author_name: 'MTC NEWS DESK', date: '2026-07-27T10:00:00',
+      featured_media_url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
+      excerpt: { rendered: '<p>Finding the waste.</p>' }, content: { rendered: '<p>Full article...</p>' }
+    },
+    {
+      id: 403, slug: 'effective-ai-native', title: 'Three Keys to Effective AI-Native Advertising Campaigns',
+      author_name: 'MTC NEWS DESK', date: '2026-07-24T10:00:00',
+      featured_media_url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
+      excerpt: { rendered: '<p>Effective AI ads.</p>' }, content: { rendered: '<p>Full article...</p>' }
+    }
   ]
 };
 
@@ -114,12 +203,32 @@ export const wordpressApi = {
 
   // GET /solutions
   getSolutions: async () => {
-    return await requestWpApi('solutions', LOCAL_JSON_DB.solutions);
+    return await requestWpApi('solution', LOCAL_JSON_DB.solutions);
   },
   
   getSolutionById: async (id) => {
-    const list = await requestWpApi('solutions', LOCAL_JSON_DB.solutions);
+    const list = await requestWpApi('solution', LOCAL_JSON_DB.solutions);
     return list.find(item => item.id.toString() === id.toString());
+  },
+
+  // GET /podcasts
+  getPodcasts: async () => {
+    return await requestWpApi('podcast', LOCAL_JSON_DB.podcasts);
+  },
+
+  // GET /infographics
+  getInfographics: async () => {
+    return await requestWpApi('infographic', LOCAL_JSON_DB.infographics);
+  },
+
+  // GET /guest-articles
+  getGuestArticles: async () => {
+    return await requestWpApi('guest_article', LOCAL_JSON_DB.guestArticles);
+  },
+
+  // GET /whitepapers
+  getWhitepapers: async () => {
+    return await requestWpApi('whitepaper', LOCAL_JSON_DB.whitepapers);
   },
 
   // POST /leads (WordPress lead capture integration)
