@@ -15,13 +15,25 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    fetch("https://formsubmit.co/ajax/enquiry@improxgroup.com", {
+      method: "POST",
+      headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+       setSubmitted(true);
+    })
+    .catch(error => console.log(error));
   };
 
   return (
     <>
       <SEOHelper 
-        title="Contact Improx Martech" 
+        title="Contact Improx Media" 
         description="Get in touch for custom sitemap audits, stack integrations, or media kit inquiries."
       />
 
@@ -46,12 +58,12 @@ export default function Contact() {
               
               <div className="flex items-center space-x-3 text-slate-300">
                 <Mail className="h-5 w-5 text-martech-cyan" />
-                <span className="text-sm">editorial@improxmartech.com</span>
+                <span className="text-sm">enquiry@improxgroup.com</span>
               </div>
 
               <div className="flex items-center space-x-3 text-slate-300">
                 <PhoneCall className="h-5 w-5 text-martech-cyan" />
-                <span className="text-sm">solutions@improxmartech.com</span>
+                <span className="text-sm">enquiry@improxgroup.com</span>
               </div>
             </div>
 
@@ -61,7 +73,7 @@ export default function Contact() {
                 Want to run programmatic display campaigns or syndicate whitepapers to our CMO database?
               </p>
               <a 
-                href="mailto:media@improxmartech.com"
+                href="mailto:enquiry@improxgroup.com"
                 className="text-xs font-black uppercase tracking-wider text-martech-cyan hover:underline"
               >
                 Request Media Kit &rarr;

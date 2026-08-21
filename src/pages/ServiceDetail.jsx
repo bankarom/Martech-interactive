@@ -21,7 +21,23 @@ export default function ServiceDetail() {
 
   const handleInquirySubmit = (e) => {
     e.preventDefault();
-    setInquired(true);
+    const formEl = e.target;
+    const data = {
+      service: service?.title,
+      name: formEl.elements[0]?.value,
+      email: formEl.elements[1]?.value,
+      company: formEl.elements[2]?.value
+    };
+    fetch("https://formsubmit.co/ajax/enquiry@improxgroup.com", {
+      method: "POST",
+      headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(() => setInquired(true))
+    .catch(() => setInquired(true));
   };
 
   const getServiceIcon = (name) => {

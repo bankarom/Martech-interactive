@@ -15,7 +15,16 @@ export default function LeadCalculator() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email || !name) return;
-    setSubmitted(true);
+    fetch("https://formsubmit.co/ajax/enquiry@improxgroup.com", {
+      method: "POST",
+      headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      },
+      body: JSON.stringify({ name, email, tools, spend, potentialSavings: potentialSavings * 12 })
+    })
+    .then(() => setSubmitted(true))
+    .catch(() => setSubmitted(true));
   };
 
   return (

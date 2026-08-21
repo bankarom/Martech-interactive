@@ -8,10 +8,23 @@ export default function Footer() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setFormData({ name: '', email: '', service: 'abm-marketing', message: '' });
-    }, 3000);
+    fetch("https://formsubmit.co/ajax/enquiry@improxgroup.com", {
+      method: "POST",
+      headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+       setSubmitted(true);
+       setTimeout(() => {
+         setFormData({ name: '', email: '', service: 'abm-marketing', message: '' });
+         setSubmitted(false);
+       }, 3000);
+    })
+    .catch(error => console.log(error));
   };
 
   return (
@@ -28,7 +41,7 @@ export default function Footer() {
             <div className="space-y-6">
               <div>
                 <span className="text-xl font-extrabold tracking-tight text-slate-900 font-display">
-                  IMPROX <span className="bg-gradient-to-r from-martech-accent to-martech-cyan bg-clip-text text-transparent">MARTECH</span>
+                  IMPROX <span className="bg-gradient-to-r from-martech-accent to-martech-cyan bg-clip-text text-transparent">MEDIA</span>
                 </span>
                 <p className="text-slate-600 text-xs leading-relaxed mt-3">
                   Premium B2B media publication platform and solutions orchestration system for high-scale enterprise SaaS brands.
@@ -44,11 +57,11 @@ export default function Footer() {
                   </li>
                   <li className="flex items-center space-x-2">
                     <Phone className="h-3.5 w-3.5 text-martech-cyan shrink-0" />
-                    <span>+91 20 6789 5432</span>
+                    <span>+1 (302) 678-5432</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <Mail className="h-3.5 w-3.5 text-martech-accent shrink-0" />
-                    <span>solutions@improxmartech.com</span>
+                    <span>enquiry@improxgroup.com</span>
                   </li>
                 </ul>
               </div>
@@ -163,7 +176,7 @@ export default function Footer() {
 
         {/* Footer bottom */}
         <div className="border-t border-slate-200 pt-8 flex flex-col md:flex-row justify-between items-center text-slate-550 text-[10px]">
-          <p>&copy; {new Date().getFullYear()} Improx Martech. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Improx Media. All rights reserved.</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <a href="#privacy" className="hover:text-slate-900">Privacy Policy</a>
             <a href="#terms" className="hover:text-slate-900">Terms of Service</a>

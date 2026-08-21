@@ -12,10 +12,27 @@ export default function GatedDownloadForm({ resourceTitle, onUnlock }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      onUnlock();
-    }, 1200);
+    fetch("https://formsubmit.co/ajax/enquiry@improxgroup.com", {
+      method: "POST",
+      headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      },
+      body: JSON.stringify({ resourceTitle, ...formData })
+    })
+    .then(res => res.json())
+    .then(() => {
+      setSubmitted(true);
+      setTimeout(() => {
+        onUnlock();
+      }, 1200);
+    })
+    .catch(() => {
+      setSubmitted(true);
+      setTimeout(() => {
+        onUnlock();
+      }, 1200);
+    });
   };
 
   return (

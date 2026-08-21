@@ -58,9 +58,7 @@ export default function Navbar() {
           
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2" onClick={() => setMobileMenuOpen(false)}>
-            <span className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white font-display">
-              IMPROX <span className="bg-gradient-to-r from-martech-accent to-martech-cyan bg-clip-text text-transparent">MARTECH</span>
-            </span>
+            <img src="/logo.png.png" alt="Improx Media" className="h-10 w-auto" />
           </Link>
 
           {/* Desktop Navigation Links */}
