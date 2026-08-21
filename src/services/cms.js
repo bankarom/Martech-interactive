@@ -270,30 +270,41 @@ const LOCAL_SERVICES = [
   }
 ];
 
+const decodeHtml = (html) => {
+  if (!html) return '';
+  const txt = document.createElement('textarea');
+  txt.innerHTML = html;
+  return txt.value;
+};
+
 const normalizeWpPost = (post) => {
   if (!post) return null;
+  const rawTitle = typeof post.title === 'object' ? post.title?.rendered : (post.title || '');
+  const rawExcerpt = typeof post.excerpt === 'object' ? post.excerpt?.rendered : (post.excerpt || '');
+  const rawContent = typeof post.content === 'object' ? post.content?.rendered : (post.content || '');
+
   return {
-    id: post.id.toString(),
-    slug: post.slug,
-    title: post.title.rendered,
-    excerpt: post.excerpt.rendered.replace(/<[^>]*>/g, '').substring(0, 120) + '...',
-    content: post.content.rendered,
-    category: post.categories_names?.[0] || 'Uncategorized',
-    categorySlug: post.categorySlug,
-    subcategorySlug: post.subcategorySlug,
+    id: post.id ? post.id.toString() : '',
+    slug: post.slug || '',
+    title: rawTitle ? decodeHtml(rawTitle) : '',
+    excerpt: rawExcerpt ? rawExcerpt.replace(/<[^>]*>/g, '').substring(0, 120) + '...' : '',
+    content: rawContent || '',
+    category: post.categories_names?.[0] || post.category || 'Uncategorized',
+    categorySlug: post.categorySlug || 'advertising-promotion',
+    subcategorySlug: post.subcategorySlug || '',
     parentCategorySlug: post.parentCategorySlug || 'insights',
     author: {
-      name: post.author_name || 'MarTech Specialist',
-      role: post.author_role || 'Contributor',
-      avatar: post.author_avatar || 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=150&q=80'
+      name: post.author_name || post.author?.name || 'MarTech Specialist',
+      role: post.author_role || post.author?.role || 'Contributor',
+      avatar: post.author_avatar || post.author?.avatar || 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=150&q=80'
     },
-    date: new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
-    readTime: post.read_time || '5 min read',
-    featuredImage: post.featured_media_url || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
+    date: post.date ? (isNaN(new Date(post.date).getTime()) ? post.date : new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })) : 'August 2026',
+    readTime: post.read_time || post.readTime || '5 min read',
+    featuredImage: post.featured_media_url || post.featuredImage || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
     views: post.views || 350,
     trending: !!post.trending,
     popular: !!post.popular,
-    tags: post.tags_names || [],
+    tags: post.tags_names || post.tags || [],
     
     // Gated details for reports
     pages: post.pages || 35,
