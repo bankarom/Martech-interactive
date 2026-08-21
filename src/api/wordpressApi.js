@@ -44,7 +44,10 @@ async function requestWpApi(endpoint, localFallbackData) {
     try {
       const response = await fetch(`${WP_API_BASE}/wp-json/wp/v2/${endpoint}`);
       if (response.ok) {
-        return await response.json();
+        const data = await response.json();
+        if (Array.isArray(data) && data.length > 0) {
+          return data;
+        }
       }
     } catch (error) {
       console.warn(`Headless WordPress fetch failed at endpoint /${endpoint}, loading local JSON registry.`, error);
